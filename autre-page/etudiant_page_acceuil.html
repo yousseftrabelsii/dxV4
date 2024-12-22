@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edu.AI Dashboard</title>
+  <link rel="stylesheet" href="acceuil_style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    /* Chatbot styles */
+    .chatbot {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      max-width: 400px;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 500px;
+      background-color: #f9f9f9;
+    }
+
+    .chatbox {
+      overflow-y: auto;
+      flex-grow: 1;
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #fff;
+    }
+
+    .chatbox div {
+      margin: 5px 0;
+    }
+
+    .chatbox .user {
+      text-align: right;
+      color: #007bff;
+    }
+
+    .chatbox .bot {
+      text-align: left;
+      color: #28a745;
+    }
+
+    .chat-input {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+    }
+
+    .chat-input button {
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+    <header class="top-header">
+        <span>
+            <img src="../images/logo.png" alt="Edu.AI Logo" class="logo-icon"> </span>
+            <span><input type="text" class="search-bar" placeholder="Recherche..."></span>
+          <span id="icon-span"><a href="etudiant_page_acceuil.html" class="icons"><i class="fa-solid fa-gear"></i></a></span>
+          <span ><a href="etudiant_page_acceuil.html" class="icons"><i class="fa-solid fa-bell"></i></a></span>
+      </header>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="profile">
+        <img src="../images/profil.jpg" alt="Profile Picture" class="profile-pic">
+        <h2>JOSEF</h2>
+        <p>ID:1234567</p>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active">Accueil</a></li>
+          <li><a href="#">Emploi</a></li>
+          <li><a href="#">Cours</a></li>
+          <li><a href="#">Stat</a></li>
+        </ul>
+      </nav>
+      <a href="#" class="logout">Déconnexion</a>
+    </aside>
+    <main class="main-content">
+      <header>
+        <h1>Bienvenue <span class="highlight">Josef</span> dans votre plateforme</h1>
+      </header>
+      <section class="content-box">
+        <!-- Chatbot Interface -->
+        <div class="chatbot">
+          <div class="chatbox" id="chatbox">
+            <!-- Chat messages will appear here -->
+          </div>
+          <div class="chat-input">
+            <input type="text" id="userMessage" placeholder="Posez une question...">
+            <button onclick="sendMessage()">Envoyer</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Chatbot logic
+    const chatbox = document.getElementById("chatbox");
+
+    function sendMessage() {
+      const userInput = document.getElementById("userMessage").value.trim();
+      if (userInput === "") return;
+
+      // Display user message
+      const userMessageDiv = document.createElement("div");
+      userMessageDiv.className = "user";
+      userMessageDiv.textContent = "Vous: " + userInput;
+      chatbox.appendChild(userMessageDiv);
+
+      // Generate bot response
+      const botMessageDiv = document.createElement("div");
+      botMessageDiv.className = "bot";
+      const botResponse = getBotResponse(userInput);
+      botMessageDiv.textContent = "Bot: " + botResponse;
+      chatbox.appendChild(botMessageDiv);
+
+      // Clear input field
+      document.getElementById("userMessage").value = "";
+
+      // Scroll to bottom of chatbox
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function getBotResponse(userInput) {
+      // Basic response logic
+      if (userInput.toLowerCase().includes("bonjour")) {
+        return "Bonjour ! Comment puis-je vous aider ?";
+      } else if (userInput.toLowerCase().includes("cours")) {
+        return "Vous pouvez accéder aux cours dans la section 'Cours'.";
+      } else if (userInput.toLowerCase().includes("emploi")) {
+        return "L'emploi du temps se trouve dans la section 'Emploi'.";
+      } else if (userInput.toLowerCase().includes("merci")) {
+        return "Avec plaisir ! 😊";
+      } else {
+        return "Je suis désolé, je ne comprends pas cette question.";
+      }
+    }
+  </script>
+</body>
+
+</html>
